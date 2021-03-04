@@ -2,66 +2,76 @@ import express  from 'express';
 import bcrypt from 'bcrypt'
 const app = express();
 
+var cors = require('cors');
+var corsOptions = {
+    origin: 'localhost',
+    optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+  }
+
+
 let users:[{userName:string,passWord:string}] = [{userName:"",passWord:""}];
 
 
 
-app.get('/',(req,res)=>{
-    res.send("hello")
-});
+
 
 app.use(express.urlencoded({extended:true}));
 
 app.use(express.json());
 
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+  });
+
 app.post('/user',async (req,res) => {
     const userName:string = req.body.userName;
     const passWord:string = req.body.passWord;
+    
+   
 
-    //console.log('Username: ' + userName + ' | Password: ' + passWord );
     try{
         const hashedPassword = await bcrypt.hash(passWord,10);
-
         users.push({userName: userName,passWord: hashedPassword})
-
-        //console.log('Username: ' + userName + ' | Password: ' + hashedPassword );
-
-
-
-        
-
-        res.status(201).send({
+        res.status(201).send({ //if user was created succesfully 
             success:true
         });
     }
    catch{
-        res.status(500).send({
+        res.status(500).send({ //Internal server error
             success:false
         })
     }
 })
 
 app.post('/user/login',async (req,res) => {
-    if(req.body.userName == undefined || req.body.passWord == undefined){
+    const userName:string = req.body.userName;
+    const passWord:string = req.body.passWord;
+
+    if(userName === undefined || passWord === undefined){ //if input is malformed error 400 = Bad Request
         return res.status(400).send({sucess:false})
     }
 
-    const user = users.find(user => user.userName === req.body.userName);
     
-    if( user == undefined){
+    const user = users.find(user => user.userName === userName); //Find the user with the same username
+    
+    if( user == undefined){ //if user doensn't exist error 401 = unauthorized
         return res.status(401).send({sucess:false})
     }
     try{
-        if(await bcrypt.compare(req.body.passWord,user.passWord)){
+        if(await bcrypt.compare(passWord,user.passWord)){ //if username and password is correct status 302 = Found
             return res.status(302).send({sucess:true})
         }
         else{
-            res.status(401).send({sucess:false})
+            res.status(401).send({sucess:false})//if password is incorrect error 401 = unauthorized
         }
     }
     catch{
-        res.status(500).send({success:false})
+        res.status(500).send({success:false}) //Internal Server error
     }
 })
+
+
 
 app.listen(5000,()=>{}); 
