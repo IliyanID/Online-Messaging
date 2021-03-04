@@ -2,11 +2,7 @@ import express  from 'express';
 import bcrypt from 'bcrypt'
 const app = express();
 
-var cors = require('cors');
-var corsOptions = {
-    origin: 'localhost',
-    optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
-  }
+
 
 
 let users:[{userName:string,passWord:string}] = [{userName:"",passWord:""}];
@@ -53,7 +49,7 @@ app.post('/user/login',async (req,res) => {
         return res.status(400).send({sucess:false})
     }
 
-    
+
     const user = users.find(user => user.userName === userName); //Find the user with the same username
     
     if( user == undefined){ //if user doensn't exist error 401 = unauthorized

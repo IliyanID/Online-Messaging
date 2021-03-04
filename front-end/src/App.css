@@ -1,0 +1,242 @@
+body{
+    overflow:hidden;
+}
+
+.app{
+
+    background-color:#FCFAC9;
+    display:relative;
+
+}
+
+.login{
+    border:solid #f52b2ee0;
+    border-radius:10px;
+
+    position:absolute;
+    left:50%;
+    top:50%;
+    transform:translate(-50%,-50%);
+
+    text-align: center;
+    
+    width:500px;
+    height:570px;
+
+    background:linear-gradient(#f52b2ee0,#f52b2ee0);
+    //background-color:#F52B30;
+
+    z-index: 2;
+
+}
+h1{
+    font-size:60px;
+    cursor:default;
+    color:white;
+}
+
+.text{
+    
+    display:block;
+    margin:20px auto;
+    width:300px;
+    outline:none;
+    border-radius: 10px;
+    background:white;
+    border:2px solid #f52b2ee0;
+    height:10px;
+    padding: 20px;
+    font-size:20px;
+
+
+
+
+}
+    .svg{
+        position:relative;
+    }
+        .svg:before{
+            content:'';
+            position:absolute;
+            left:-330px;
+            top:47px;
+            bottom:0px;
+            width:20px;
+            
+        }
+        .Google:before{
+            background: url("./resources/svg/google-icon.svg") center / contain no-repeat;
+        }
+        .Spotify:before{
+            background: url("./resources/svg/spotify.svg")  center / contain no-repeat;
+        }
+        .Apple:before{
+            background: url("./resources/svg/apple.svg")  center / contain no-repeat;
+        }
+
+.button{
+    background:white;
+    border:2px solid #F52B30;
+    border-radius:10px;
+    height:40px;
+    width:340px;
+    padding:auto;
+    font-size:20px;
+    margin:5px;
+
+    transition:.3s;
+ 
+}
+.button:hover{
+    background-color:#991e08;
+    color:white;
+    cursor:pointer;
+}
+
+.newAccount{
+    color:white;
+    cursor: default;
+}
+
+.planet{
+    position:relative;
+}
+
+.circle{
+    position:relative;
+    width:100vw; height:100vh;
+    margin:0 auto;
+    overflow:hidden;
+    z-index: 1;
+}
+    .circle:after{
+        width:800px; height:800px;
+        content:'';
+        position:absolute;
+        left:50%; top:50%;;
+        transform: translate(-50%,-50%);
+        
+        border-radius:100%;
+        box-shadow: 0px 0px 0px 100vw #061230;
+
+        z-index:1;
+    }
+    .circle:before{
+        z-index: 0;
+        content: '';
+        position:absolute;
+        width:100vw;
+        height:60px;
+        top:140px;
+        background-color:#FBB055;
+
+        
+    }
+    .bar:before{
+        z-index: -1;
+        content: '';
+        position:absolute;
+        width:100vw;
+        height:130px;
+        top:210px;
+        background-color:#FBB055;
+        
+       
+    }
+    .bar:after{
+        z-index: -1;
+        content: '';
+        position:absolute;
+        width:100vw;
+        height:300px;
+        top:350px;
+        background-color:#FBB055;    
+        
+        border-radius: 0px 0px 0px 0px;
+
+        
+    }
+
+    .bar{
+        position: absolute;
+        width:100vw;
+        height: 100vh;
+        background-color:#FCFAC9 ;
+        z-index: -4;
+
+        
+        
+    }
+
+    .topBottom:after{
+        position:absolute;
+        content:'';
+        width:100vw;
+        height:100px;
+        background-color: #C76629;
+
+        z-index: -3;
+        
+    }
+    .topBottom:before{
+        position:absolute;
+        content:'';
+        width:100vw;
+        height:150px;
+        background-color: #C76629;
+        top:700px;
+        z-index: -3;   
+        
+        
+    }
+    .line:after{
+        position:absolute;
+        content:'';
+        width:100vw;
+        height:80px;
+        background-color: #C76629;
+        top:460px;
+        
+        border-radius:25px 25px 25px 25px;
+        animation:move 18s;
+        animation-iteration-count: infinite;
+
+    
+      
+
+
+        z-index: 0;        
+    }
+
+    .line:before{
+        position:absolute;
+        content:'';
+        width:100vw;
+        height:30px;
+        background-color: #C76629;
+        top:230px;
+        
+        border-radius:25px 25px 25px 25px;
+        animation:move 20s;
+        animation-iteration-count: infinite;
+
+      
+
+    
+       
+
+
+        z-index: 0;        
+    }
+
+    @keyframes move{
+        from{
+            transform:translate(-100vw,0px);
+        }
+  
+        to{     
+            transform:translate(100vw,0px));
+        }
+    }
+
+        

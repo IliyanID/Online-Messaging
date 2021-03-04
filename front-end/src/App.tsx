@@ -94,7 +94,7 @@ const App = () => {
   
       
   
-    let url = "http://192.168.0.105:5000/user/login";
+    let url = "http://10.0.0.37:5000/user/login";
     //let response = await fetch(url,{method: 'POST', {headers:headers, body:credentials.toString()});
   
   
@@ -122,6 +122,11 @@ const App = () => {
     console.log(rawData.sucess);
   
     setLogin((rawData.sucess) ? 'Yes':'No');
+    if(rawData.sucess)
+      alert("logged in");
+    else{
+      alert("Wrong credentials")
+    }
     
   }
 
@@ -131,22 +136,25 @@ const App = () => {
 
   return (
     <div className="App">
-      <form>
-        <h1>Create Account</h1>
-        <input id='cuserName' type='text'></input>
-        <input id = 'cpassWord' type ='text'></input>
-        <input type = 'submit' value='submit' onClick={createAccount}></input>
-      </form>
 
-      <form>
-        <h1>Login</h1>
-        <input id='userName' type='text'></input>
-        <input id = 'passWord' type ='text'></input>
-        <input type = 'submit' value='submit' onClick={sendLogin}></input>
+      <div className='planet'>
+        <div className='bar'>
+            <div className='topBottom'></div>
+            <div className='line'></div>
+            <div className='circle'></div>
+            
+        </div>
+      </div>
+      <form className = 'login'>
+        <h1>Jupiter</h1>
+        <input className='text' placeholder='Username' id='userName' type='text'></input>
+        <input className='text' placeholder = 'Password'id = 'passWord' type ='password'></input>
+        <input className='button'type = 'submit' value='Login' onClick={sendLogin}></input>
+        <label className='Google svg'><input className='button' type='button' value='Sign in with Google'></input></label>
+        <label className='Spotify svg'><input className='button' type='button' value='Sign in with Spotify'></input></label>
+        <label className='Apple svg'><input className='button' type='button' value='Sign in with Apple ID'></input></label>
+        <p className='newAccount'>Don't have an account? Create one</p>
       </form>
-      <h2>Currently Logged: {login}</h2>
-
-      <input type='submit' value='logout' onClick={()=>{setLogin('No')}}></input>
     </div>
   );
 }
