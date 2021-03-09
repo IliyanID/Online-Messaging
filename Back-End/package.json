@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "tsc && node dist/app.js",
-    "dev": "nodemon src/app.ts",
+    "start": "tsc && node dist/Server.js",
+    "dev": "nodemon src/Server.ts",
     "build": "tsc -p ."
   },
   "keywords": [],
@@ -25,6 +25,7 @@
     "cors": "^2.8.5",
     "crypt-js": "^1.0.4",
     "crypto-js": "^4.0.0",
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "mongodb": "^3.6.4"
   }
 }

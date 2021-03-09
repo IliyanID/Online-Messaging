@@ -21,7 +21,7 @@ body{
     text-align: center;
     
     width:500px;
-    height:570px;
+    height:auto;
 
     background:linear-gradient(#f52b2ee0,#f52b2ee0);
     //background-color:#F52B30;
@@ -29,10 +29,46 @@ body{
     z-index: 2;
 
 }
+.createAccount{
+    border:solid #f52b2ee0;
+    border-radius:10px;
+
+    position:absolute;
+    left:50%;
+    top:50%;
+    transform:translate(-50%,-50%);
+
+    text-align: center;
+    
+    width:500px;
+    height:720px;
+
+    background:linear-gradient(#f52b2ee0,#f52b2ee0);
+    //background-color:#F52B30;
+
+    z-index: 2;   
+}
 h1{
     font-size:60px;
     cursor:default;
     color:white;
+}
+
+.alertError{
+    background-color:rgb(255, 0, 0);
+
+    width:80%;
+    margin:10px auto;
+    border-radius:10px;
+    padding: 10px 0px;
+}
+
+.alertNotify{
+    background-color:rgb(9, 156, 46);
+    width:80%;
+    margin:10px auto;
+    border-radius:10px;
+    padding: 10px 0px;
 }
 
 .text{
@@ -83,7 +119,7 @@ h1{
     padding:auto;
     font-size:20px;
     margin:5px;
-
+    outline:none;
     transition:.3s;
  
 }
@@ -229,13 +265,21 @@ h1{
         z-index: 0;        
     }
 
+    .link{
+        text-decoration: underline;
+        cursor:pointer;
+    }
+        .link:hover{
+            color:rgb(41, 169, 219);
+        }
+
     @keyframes move{
         from{
             transform:translate(-100vw,0px);
         }
   
         to{     
-            transform:translate(100vw,0px));
+            transform:translate(100vw,0px);
         }
     }
 
