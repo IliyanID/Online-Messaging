@@ -1,5 +1,6 @@
 import React,{useState, Fragment, FormEvent, useEffect} from 'react';
 import {GoogleLogin} from 'react-google-login';
+import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props'
 
 
 import './App.css';
@@ -119,7 +120,10 @@ const App = () => {
   
     let response = await postData(url,credentials)
     
-    setNotify({error:response.error,message:'Welcome ' + res.profileObj.name + '!'});
+    if(!response.error)
+      setNotify({error:response.error,message:'Welcome ' + res.profileObj.name + '!'});
+    else
+      setNotify(response);
   }
 
   const googleCreate = async(res:any) =>{
@@ -136,9 +140,36 @@ const App = () => {
     if(!response.error)
       setState(Currentpage.login);
   }
+
+  const loginFacebook = async(res:any) =>{
+    let url = 'http://10.0.0.108:5000/user/login'
+    let credentials = {userName:res.name + res.id,passWord:res.id};
+  
+    console.log(res)
+    let response = await postData(url,credentials)
+    
+    if(!response.error)
+      setNotify({error:response.error,message:'Welcome ' + res.name + '!'});
+    else
+      setNotify(response);
+  }
+  const createFacebook = async(res:any) =>{
+    let credentials = {userName:res.name + res.id,passWord:res.id};
+
+    console.log(credentials);
+    let url = 'http://10.0.0.108:5000/user'
+    let response = await postData(url,credentials)
+    
+    setNotify(response);
+    
+
+    //console.log(response.error);
+    if(!response.error)
+      setState(Currentpage.login);
+  }
   
   const onFailure = (res:any) =>{
-    setNotify({error:true,message:"Failed to get Google Credentials"})
+    setNotify({error:true,message:"Failed to get Credentials"})
   }
   
   let errorMessage = <Fragment></Fragment>
@@ -168,8 +199,13 @@ const App = () => {
             cookiePolicy={'single_host_origin'}
           />
 
-          <label className='Spotify svg'><input className='button' type='button' value='Sign in with Spotify'></input></label>
-          <label className='Apple svg'><input className='button' type='button' value='Sign in with Apple ID'></input></label>
+          <FacebookLogin
+            appId="739390000075213" 
+            callback={loginFacebook}
+            render={(renderProps) =>(
+              <label className='Facebook svg'><input className='button' type='button'  onClick={renderProps.onClick} value='Sign in with Facebook'></input></label>
+            )}
+          />
           <p className='newAccount'>Don't have an account? <span onClick={()=>setState(()=>Currentpage.createAccount)} className='link'>Create one</span></p>
         </form>
 
@@ -190,15 +226,20 @@ const App = () => {
           <GoogleLogin  
             clientId = {clientId}
             render={renderProps =>(
-              <label className='Google svg'><input className='button' type='button'  onClick={renderProps.onClick} value='Create account with Google'></input></label>
+              <label className='Google svg'><input className='button' type='button'  onClick={renderProps.onClick} value='Create with Google'></input></label>
             )}
             onSuccess={googleCreate}
             onFailure = {onFailure}
             cookiePolicy={'single_host_origin'}
           />
 
-          <label className='Spotify svg'><input className='button' type='button' value='Create account with Spotify'></input></label>
-          <label className='Apple svg'><input className='button' type='button' value='Create account with Apple ID'></input></label>
+          <FacebookLogin
+            appId="739390000075213" 
+            callback={createFacebook}
+            render={(renderProps) =>(
+              <label className='Facebook svg'><input className='button' type='button'  onClick={renderProps.onClick} value='Create with Facebook'></input></label>
+            )}
+          />
           <p className='newAccount'>Already have an account? <span className='link' onClick={()=>setState(Currentpage.login)}>Login</span></p>
         </form>
     );    

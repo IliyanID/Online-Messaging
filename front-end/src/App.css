@@ -95,7 +95,7 @@ h1{
             content:'';
             position:absolute;
             left:-330px;
-            top:47px;
+            top:50px;
             bottom:0px;
             width:20px;
             
@@ -103,11 +103,8 @@ h1{
         .Google:before{
             background: url("./resources/svg/google-icon.svg") center / contain no-repeat;
         }
-        .Spotify:before{
-            background: url("./resources/svg/spotify.svg")  center / contain no-repeat;
-        }
-        .Apple:before{
-            background: url("./resources/svg/apple.svg")  center / contain no-repeat;
+        .Facebook:before{
+            background: url("./resources/svg/facebook.svg")  center / contain no-repeat;
         }
 
 .button{
