@@ -26,7 +26,7 @@ const App = () => {
       setNotify({error:false,message:""});
    },5000)
     return () => clearTimeout(timer);
-  }, []);
+  }, );
 
 
   const postData =async<T extends {}, G extends{error:boolean,message:string}>(url:string,data:T):Promise<G> =>{
