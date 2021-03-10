@@ -51,13 +51,13 @@ MongoClient.connect(mongoURL,{useNewUrlParser:true},(error:any,client:any) =>{
                 if(!error){
                     res.status(201).send({ //if user was created succesfully 
                         error:false,
-                        message:"The user " + userName + " was succesfully created!"
+                        message:"The user was succesfully created!"
                     });
                 }
                 else{
                     res.status(409).send({ //if user was created succesfully 
                         error:true,
-                        message:"Error 409: The username " + userName + " is already taken."
+                        message:"Error 409: The username is already taken."
                     });
                 }
             })

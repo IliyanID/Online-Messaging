@@ -24,7 +24,7 @@ const App = () => {
   useEffect(() => {
     const timer = setTimeout(()=>{
       setNotify({error:false,message:""});
-   },2000)
+   },5000)
     return () => clearTimeout(timer);
   }, []);
 
@@ -113,16 +113,17 @@ const App = () => {
   const clientId = '20941103072-p44ideb6m9rg6bqagbgl8c7r6uq35vgk.apps.googleusercontent.com'
 
   const googleLogin = async(res:any) =>{
+
     let url = 'http://10.0.0.108:5000/user/login'
-    let credentials = {userName:res.profileObj.email,passWord:res.profileObj.googleId};
+    let credentials = {userName:res.profileObj.email + res.profileObj.googleId,passWord:res.profileObj.googleId};
   
     let response = await postData(url,credentials)
     
-    setNotify(response);
+    setNotify({error:response.error,message:'Welcome ' + res.profileObj.name + '!'});
   }
 
   const googleCreate = async(res:any) =>{
-    let credentials = {userName:res.profileObj.email,passWord:res.profileObj.googleId};
+    let credentials = {userName:res.profileObj.email + res.profileObj.googleId,passWord:res.profileObj.googleId};
 
     console.log(credentials);
     let url = 'http://10.0.0.108:5000/user'
