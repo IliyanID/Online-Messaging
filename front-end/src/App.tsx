@@ -1,5 +1,5 @@
 import React,{useState, Fragment, FormEvent, useEffect} from 'react';
-
+import {GoogleLogin} from 'react-google-login';
 
 
 import './App.css';
@@ -61,7 +61,7 @@ const App = () => {
     let doc= document.getElementById('userName') as HTMLInputElement;
     if(doc != null){
       userName = doc.value;
-      doc.value = "";
+      //doc.value = "";
     }
     doc= document.getElementById('passWord') as HTMLInputElement;
     if(doc != null){
@@ -104,15 +104,47 @@ const App = () => {
     setNotify(response);
     
 
-    setState(Currentpage.login);
+    //console.log(response.error);
+    if(!response.error)
+      setState(Currentpage.login);
     
+  }
+
+  const clientId = '20941103072-p44ideb6m9rg6bqagbgl8c7r6uq35vgk.apps.googleusercontent.com'
+
+  const googleLogin = async(res:any) =>{
+    let url = 'http://10.0.0.108:5000/user/login'
+    let credentials = {userName:res.profileObj.email,passWord:res.profileObj.googleId};
+  
+    let response = await postData(url,credentials)
+    
+    setNotify(response);
+  }
+
+  const googleCreate = async(res:any) =>{
+    let credentials = {userName:res.profileObj.email,passWord:res.profileObj.googleId};
+
+    console.log(credentials);
+    let url = 'http://10.0.0.108:5000/user'
+    let response = await postData(url,credentials)
+    
+    setNotify(response);
+    
+
+    //console.log(response.error);
+    if(!response.error)
+      setState(Currentpage.login);
+  }
+  
+  const onFailure = (res:any) =>{
+    setNotify({error:true,message:"Failed to get Google Credentials"})
   }
   
   let errorMessage = <Fragment></Fragment>
     if(notify.message !== "")
     errorMessage=(<p className={(notify.error) ? 'alertError newAccount' : 'alertNotify newAccount'}>{notify.message}</p>);
 
-  console.log(notify.message)
+  //console.log(notify.message)
 
   let form = <Fragment></Fragment>;
   if(state ===  Currentpage.login){
@@ -124,7 +156,17 @@ const App = () => {
           <input className='text' placeholder = 'Password'id = 'passWord' type ='password'></input>
           {errorMessage}
           <button className='button'type = 'submit' onClick={sendLogin}>Login</button>
-          <label className='Google svg'><input className='button' type='button' value='Sign in with Google'></input></label>
+          
+          <GoogleLogin  
+            clientId = {clientId}
+            render={renderProps =>(
+              <label className='Google svg'><input className='button' type='button'  onClick={renderProps.onClick} value='Sign in with Google'></input></label>
+            )}
+            onSuccess={googleLogin}
+            onFailure = {onFailure}
+            cookiePolicy={'single_host_origin'}
+          />
+
           <label className='Spotify svg'><input className='button' type='button' value='Sign in with Spotify'></input></label>
           <label className='Apple svg'><input className='button' type='button' value='Sign in with Apple ID'></input></label>
           <p className='newAccount'>Don't have an account? <span onClick={()=>setState(()=>Currentpage.createAccount)} className='link'>Create one</span></p>
@@ -143,7 +185,17 @@ const App = () => {
           <input className='text passWord' placeholder = 'Confirm Password' type ='password'></input>
           {errorMessage}
           <button className='button'type = 'submit' onClick={createAccount}>Create Account</button>
-          <label className='Google svg'><input className='button' type='button' value='Create account with Google'></input></label>
+          
+          <GoogleLogin  
+            clientId = {clientId}
+            render={renderProps =>(
+              <label className='Google svg'><input className='button' type='button'  onClick={renderProps.onClick} value='Create account with Google'></input></label>
+            )}
+            onSuccess={googleCreate}
+            onFailure = {onFailure}
+            cookiePolicy={'single_host_origin'}
+          />
+
           <label className='Spotify svg'><input className='button' type='button' value='Create account with Spotify'></input></label>
           <label className='Apple svg'><input className='button' type='button' value='Create account with Apple ID'></input></label>
           <p className='newAccount'>Already have an account? <span className='link' onClick={()=>setState(Currentpage.login)}>Login</span></p>
@@ -162,7 +214,7 @@ const App = () => {
           <div className='circle'></div>  
         </div>
       </div>
-    {form}
+      {form}
     </div>);
 }
 

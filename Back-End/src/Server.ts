@@ -55,9 +55,9 @@ MongoClient.connect(mongoURL,{useNewUrlParser:true},(error:any,client:any) =>{
                     });
                 }
                 else{
-                    res.status(500).send({ //if user was created succesfully 
+                    res.status(409).send({ //if user was created succesfully 
                         error:true,
-                        message:"The username " + userName + " is already taken."
+                        message:"Error 409: The username " + userName + " is already taken."
                     });
                 }
             })
@@ -120,6 +120,31 @@ MongoClient.connect(mongoURL,{useNewUrlParser:true},(error:any,client:any) =>{
             }
         })
             
+    });
+
+    app.get('*',(req,res)=>{
+        res.status(404).send({
+            error:true,
+            message:"Error 404: Invalid Path"
+        });
+    });
+    app.put('*',(req,res)=>{
+        res.status(404).send({
+            error:true,
+            message:"Error 404: Invalid Path"
+        });
+    });
+    app.delete('*',(req,res)=>{
+        res.status(404).send({
+            error:true,
+            message:"Error 404: Invalid Path"
+        });
+    });
+    app.post('*',(req,res)=>{
+        res.status(404).send({
+            error:true,
+            message:"Error 404: Invalid Path"
+        });
     });
 
         //const user = users.find(user => user.userName === userName); //Find the user with the same username
