@@ -1,0 +1,100 @@
+:root{
+    --headerBackground:rgb(22, 165, 221);
+    --blue:rgb(0, 155, 245);
+}
+
+.LandingPage{
+    padding:none;
+    margin:none;
+    width:100vw;
+    height:100vh;
+    background-color:rgb(252, 252, 252);
+}
+    .header{
+        font-family: 'Rajdhani', sans-serif;
+
+        position:absolute;
+        
+        margin:0;
+        height: 50vh;
+        width:100vw;
+        background:url(../../resources/background/peak.jpg) no-repeat;
+        background-size: cover;
+        background-position: center;
+
+    }
+        .name{
+            display:inline;
+            font-weight: 900;
+            font-size:50px;
+            margin:50px 0 0 50px;
+            padding:0;
+
+            width: 300px;
+            cursor:pointer;
+        }
+        .header ul{
+            list-style: none;
+            position:absolute;
+            top:0px;
+            left:50%;
+            transform:translateX(-50%);
+        }
+            .header li{
+                display:inline-block;
+                margin:0px 40px;
+                font-weight: 500;
+                font-size:20px;
+                cursor:pointer;
+
+            }
+                .header li:hover{
+                    text-decoration: underline;
+                }
+            
+        .buttonsContainer{
+           text-align: center;
+     
+
+            height:calc(100% - 65px);
+        }
+            .buttonsContainer p{
+                font-size:20px;
+                max-width: 80vw;
+                color:black;
+                display:flex;
+                margin:0 auto;
+                padding-bottom:40px;
+            }
+            .buttonsContainer h1{
+                font-size:80px;
+                margin:10 0;
+            }
+            .buttonsContainer input{
+                display:inline-block;
+
+                text-align: center;
+             
+                width:350px;
+                margin:0px 40px;
+
+                background: var(--blue);
+                color: white;
+                
+                border: 2px solid var(--blue);
+                border-radius: 20px;
+
+             
+                font: inherit;
+                cursor: pointer;
+                outline: inherit;
+
+                padding: 5px 0px;
+
+                font-size:28px;
+
+                transition: .5s;
+            }
+                .buttonsContainer input:hover{
+                    box-shadow:0px 0px 8px var(--blue);
+                }
