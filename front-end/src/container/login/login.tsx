@@ -8,9 +8,14 @@ import './login.css';
 
 
 
+interface props{
+  getLoginInfo:{loggedIn:boolean,userName:string}
+  setLoginInfo:({loggedIn:boolean,userName:string}) => void
+}
+
+const Login:React.FC<props> = ({ getLoginInfo, setLoginInfo}) => {
 
 
-const Login = () => {
   enum Currentpage {
     login,
     createAccount
@@ -20,6 +25,7 @@ const Login = () => {
 
   const [state,setState] = useState(Currentpage.login);
   const [notify,setNotify] = useState({error:false,message:""});
+  
 
 
   useEffect(() => {
@@ -82,7 +88,13 @@ const Login = () => {
   
     let response = await postData(url,credentials)
     
-    setNotify(response);
+
+    if(!response.error){
+      setLoginInfo({loggedIn:true,userName:userName});
+    }
+    else
+      setNotify(response);
+    
     
   }
 
@@ -128,8 +140,11 @@ const Login = () => {
   
     let response = await postData(url,credentials)
     
-    if(!response.error)
-      setNotify({error:response.error,message:'Welcome ' + res.profileObj.name + '!'});
+    if(!response.error){
+      setLoginInfo({loggedIn:true,userName:res.profileObj.name});
+    }
+
+    
     else
       setNotify(response);
   }
@@ -156,8 +171,10 @@ const Login = () => {
  
     let response = await postData(url,credentials)
     
-    if(!response.error)
-      setNotify({error:response.error,message:'Welcome ' + res.name + '!'});
+    if(!response.error){
+      setLoginInfo({loggedIn:true,userName:res.name});
+    }
+   
     else
       setNotify(response);
   }
@@ -191,7 +208,7 @@ const Login = () => {
     form = 
     (
         <form className = 'login'>
-          <h1>Jupiter</h1>
+          <h1>Deimos</h1>
           <input className='text' placeholder='Username' id='userName' type='text'></input>
           <input className='text' placeholder = 'Password'id = 'passWord' type ='password'></input>
           {errorMessage}
@@ -223,7 +240,7 @@ const Login = () => {
     form = 
     (
         <form className = 'createAccount'>
-          <h1>Jupiter</h1>
+          <h1>Deimos</h1>
           <input className='text userName' placeholder='Username'  type='text'></input>
           <input className='text userName' placeholder='Confirm Username' type='text'></input>
           <input className='text passWord' placeholder = 'Password' type ='password'></input>
@@ -253,19 +270,10 @@ const Login = () => {
     );    
   }
 
-  /*
-  <div className='planet'>
-        <div className='bar'>
-          <div className='topBottom'></div>
-          <div className='line'></div>
-          <div className='circle'></div>  
-        </div>
-      </div>
-      {form}
-      */
+
 
   return (
-    <div className="App">
+    <div className="loginApp">
     {form}
       
     </div>);
