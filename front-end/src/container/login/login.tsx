@@ -9,8 +9,8 @@ import './login.css';
 
 
 interface props{
-  getLoginInfo:{loggedIn:boolean,userName:string}
-  setLoginInfo:({loggedIn:boolean,userName:string}) => void
+  getLoginInfo:{loggedIn:boolean,userName:string,view:string}
+  setLoginInfo:(obj:{loggedIn:boolean,userName:string,view:string}) => void
 }
 
 const Login:React.FC<props> = ({ getLoginInfo, setLoginInfo}) => {
@@ -90,7 +90,7 @@ const Login:React.FC<props> = ({ getLoginInfo, setLoginInfo}) => {
     
 
     if(!response.error){
-      setLoginInfo({loggedIn:true,userName:userName});
+      setLoginInfo({loggedIn:true,userName:userName,view:"dashboard"});
     }
     else
       setNotify(response);
@@ -141,7 +141,7 @@ const Login:React.FC<props> = ({ getLoginInfo, setLoginInfo}) => {
     let response = await postData(url,credentials)
     
     if(!response.error){
-      setLoginInfo({loggedIn:true,userName:res.profileObj.name});
+      setLoginInfo({loggedIn:true,userName:res.profileObj.name,view:"dashboard"});
     }
 
     
@@ -172,7 +172,7 @@ const Login:React.FC<props> = ({ getLoginInfo, setLoginInfo}) => {
     let response = await postData(url,credentials)
     
     if(!response.error){
-      setLoginInfo({loggedIn:true,userName:res.name});
+      setLoginInfo({loggedIn:true,userName:res.name,view:"dashboard"});
     }
    
     else
@@ -208,7 +208,7 @@ const Login:React.FC<props> = ({ getLoginInfo, setLoginInfo}) => {
     form = 
     (
         <form className = 'login'>
-          <h1>Deimos</h1>
+          <h1 onClick={()=>setLoginInfo({loggedIn:false,userName:"",view:"landingPage"})}>Deimos</h1>
           <input className='text' placeholder='Username' id='userName' type='text'></input>
           <input className='text' placeholder = 'Password'id = 'passWord' type ='password'></input>
           {errorMessage}
@@ -240,7 +240,7 @@ const Login:React.FC<props> = ({ getLoginInfo, setLoginInfo}) => {
     form = 
     (
         <form className = 'createAccount'>
-          <h1>Deimos</h1>
+          <h1 onClick={()=>setLoginInfo({loggedIn:false,userName:"",view:"landingPage"})}>Deimos</h1>
           <input className='text userName' placeholder='Username'  type='text'></input>
           <input className='text userName' placeholder='Confirm Username' type='text'></input>
           <input className='text passWord' placeholder = 'Password' type ='password'></input>

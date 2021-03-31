@@ -56,10 +56,11 @@
 
     z-index: 2;   
 }
-h1{
-    font-size:60px;
+.login h1, .createAccount h1{
+    font-size:65px;
     cursor:default;
     color:white;
+    cursor:pointer
 }
 
 .alertError{

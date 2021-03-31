@@ -2,11 +2,11 @@ import React,{useState, Fragment, FormEvent, useEffect} from 'react';
 import './dashboard.css';
 
 interface props{
-    changeView: () => void
-    creds:{loggedIn:boolean,userName:string}
+    logOut: () => void
+    creds:{loggedIn:boolean,userName:string,view:string}
 }
 
-const Dashboard: React.FC<props> = ({changeView,creds}) => {
+const Dashboard: React.FC<props> = ({logOut,creds}) => {
     return (
         <div>
             <section>
@@ -17,6 +17,7 @@ const Dashboard: React.FC<props> = ({changeView,creds}) => {
                     <li>Server 3</li>
                 </ul>
             </section>
+            <input type='button' value='Logout' onClick={logOut}></input>
         </div>
     );
 }
