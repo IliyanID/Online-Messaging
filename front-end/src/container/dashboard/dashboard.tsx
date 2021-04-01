@@ -7,6 +7,8 @@ import {ReactComponent as Message} from '../../resources/svg/chatting.svg'
 import {ReactComponent as Microphone} from '../../resources/svg/microphone.svg'
 import {ReactComponent as Video} from '../../resources/svg/video-camera.svg'
 
+import HostProfile from '../../resources/profilePicture/male.jpg'
+
 interface props{
     logOut: () => void
     creds:{loggedIn:boolean,userName:string,view:string}
@@ -34,19 +36,61 @@ const Dashboard: React.FC<props> = ({logOut,creds}) => {
             <div className='bounds'>
                 <Draggable 
                 bounds = {'.bounds'}
-                defaultPosition = {{x:70,y:40}}
-                cancel = '.friendName'
+                defaultPosition = {{x:50,y:40}}
+                cancel = '.messagesContainer'
                 >
                     <div className='messages'>
-                        <div className='friendName'>User1</div>
-                        <ul className='callOptions'>
-                            <li><Microphone className='svg'/></li>
-                            <li><Video className='svg'/></li>
-                        </ul>
+                        <div className='messagesContainer'>
+                            <div className='messageHeader'>
+                                <div className = 'friendName'>User1</div>
+                                <ul className='callOptions'>
+                                    <li><Microphone className='svg microphone'/></li>
+                                    <li><Video className='svg'/></li>
+                                </ul>
+                            </div>
+                            <div className='messageContent'>
+                                <ul>
+                                    <li>
+                                        <img className='profilePicture' src={HostProfile} alt ='Host Profile'/>
+                                        <div className='hostMessage'>
+                                            <div className='hostName'>
+                                                {creds.userName} <div>4/1/2021 10:26AM</div>
+                                            </div>
+                                            <div>
+                                                This is my message that I'm saying
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <img className='profilePicture' src={HostProfile} alt ='Host Profile'/>
+                                        <div className='hostMessage'>
+                                            <div>
+                                                {creds.userName} 
+                                            </div>
+                                            <div>4/1/2021 10:26AM</div>
+                                            <div>
+                                                This is my second message
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <img className='profilePicture' src={HostProfile} alt ='Host Profile'/>
+                                        <div className='hostMessage'>
+                                            <div className='hostName'>
+                                                {creds.userName} <div>4/1/2021 10:26AM</div>
+                                            </div>
+                                            <div>
+                                                This is my message that I'm saying
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
 
-                        <form className='messageText'>
-                            <input type='text' placeholder='Message @User1'></input>
-                        </form>
+                            <form className='messageText'>
+                                <input type='text' placeholder='Message @User1'></input>
+                            </form>
+                        </div>
                         
                     </div>
                 </Draggable>

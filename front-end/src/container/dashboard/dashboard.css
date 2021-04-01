@@ -46,7 +46,7 @@
 
         margin:10px;
 
-        border:2px solid black;
+        border:2px solid var(--gray);
         border-radius:10px;
         
         cursor:pointer;
@@ -88,50 +88,115 @@
             .messages:active{
                 cursor:grabbing;
             }
-        .friendName{
+            .messagesContainer{
+                height:570px;
+                transform:translateY(30px);
+
+                cursor:default;
+            }
+        .messageHeader{
+            position:relative;
+
+            width:90%;
+            text-align: center;
+            margin: 0 auto;
             border: 2px solid rgb(59, 59, 59);
             border-radius: 5px;
             background-color:rgb(59, 59, 59);
-            color:rgb(255, 255, 255);
 
-            float:left;
-            width:400px;
-            font-size:20px;
-            margin:10px;
-
-            z-index: 2;
-
+            height: 30px;
         }
-            .friendName:after{
-                content:"";
+            .friendName{
+                position:relative;
+                display: inline;
+                color:rgb(255, 255, 255);
+
+                float:left;
+            
+                font-size:20px;
+            
+      
+                
+
+                z-index: 2;
+
+            }
+                .friendName:after{
+                    content:"";
+                    position:absolute;
+                    
+                    width:12px;
+                    height:12px;
+                    background-color:rgb(255, 0, 0);
+
+                    border-radius: 50%;
+            
+                    
+                    transform: translate(-7px, -0px);
+                    z-index: -1;
+
+                    overflow: visible;
+                }
+            .callOptions{
+                display:inline;
+                list-style: none;
+                margin-right:20px;
+                padding:0px;
+                margin:0px;
+
                 position:absolute;
+                right:0px;
                 
-                width:15px;
-                height:15px;
-                background-color:rgb(255, 0, 0);
-
-                border-radius: 50%;
-          
-                
-                transform: translate(-7px, -0px);
-                z-index: 3;
+            
             }
-        .callOptions{
-            float:right;
-            list-style: none;
-            margin-right:20px;
-        
+                .callOptions li{
+                    padding:0px 5px;
+                    display:inline-block;
+                }
+                .svg{
+                    width:30px;
+                    height:30px;
+
+                    fill:white;
+                }
+                    .microphone{
+                        width:25px;
+                        height:25px;
+                        transform:translateY(-2px);
+                    }
+        .messageContent{
+            width:90%;
+            
+            text-align: center;
+            margin:0 auto;
+            position: relative;
         }
-            .callOptions li{
-                padding:0px 5px;
-                display:inline-block;
+            .messageContent ul{
+                text-align: left;
+                list-style: none;
+                width:100%;
+                margin-top:10px;
+                padding:0px;
+                border:2px solid transparent;
             }
-            .svg{
-                width:30px;
-                height:30px;
+                .messageContent ul li{
+                    width:100%;
+                    position: relative;
+                    border:2px solid transparent;
+                    min-height: 50px;
+                }
+                    .profilePicture{
+                        width:50px;
+                        border-radius: 50%;
+                        float:left;
+                    }
+                    .hostMessage:first-child{
+                        display:inline-block;
+                    }
+                    .hostMessage:nth-child(2){
+                        display:inline-block;
+                    }
 
-
-            }
         .messageText{
             position:absolute;
             bottom:20px;
@@ -145,7 +210,7 @@
                 width:93%;
                 background-color:transparent;
                 border:0px;
-                border-bottom:1px solid black;
+                border-bottom:1px solid var(--gray);
                 color:white;
                 outline:none;
                 font-size:15px;
