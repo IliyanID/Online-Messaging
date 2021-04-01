@@ -1,3 +1,163 @@
+:root{
+    --gray:rgb(48, 48, 48);
+}
+
+.dashboard{
+    height:100vh;
+    width:100vw;
+
+    position:absolute;
+    top:0px;
+    left:0px;
+
+    background:url(../../resources/background/mountain.jpg)  no-repeat;
+    background-position: center;
+    background-size: cover;
+
+
+}
+
+.navBar{
+    background-color: rgba(255, 255, 255, .15);  
+    backdrop-filter: blur(10px); 
+    
+
+    border-right:0px solid black;
+    border-top:0px solid black;
+    border-radius: 0px 10px 0px 0px;
+
+    text-align: center;
+    height:calc(100% - 80px);
+    position:absolute;
+    top:80px;
+
+    margin:0px;
+    padding:0px;
+}
+    .navBar li{
+        color:white;
+
+        background-color:var(--gray);
+
+        width:40px;
+        height: 40px;
+
+        display:block;
+
+        margin:10px;
+
+        border:2px solid black;
+        border-radius:10px;
+        
+        cursor:pointer;
+
+        display:relative;
+
+        font-size:15px;
+        
+    }
+        .messageSVG{
+
+          
+            width:30px;
+            height:30px;
+            transform:translateY(5px);
+         
+        }
+    .bounds{
+        position:absolute;
+        top: 0px ;
+        left:70px;
+        //border:2px solid black;
+        height: calc(100vh - 5px);
+        width:calc(100vw - 74px);
+    }
+        .messages{
+            border:0px solid black;
+            border-radius: 20px;
+
+            height:600px;
+            width:600px;
+            background-color: rgba(255, 255, 255, .15);  
+            backdrop-filter: blur(10px);
+            
+        }
+            .messages:hover{
+                cursor:grab;
+            }
+            .messages:active{
+                cursor:grabbing;
+            }
+        .friendName{
+            border: 2px solid rgb(59, 59, 59);
+            border-radius: 5px;
+            background-color:rgb(59, 59, 59);
+            color:rgb(255, 255, 255);
+
+            float:left;
+            width:400px;
+            font-size:20px;
+            margin:10px;
+
+            z-index: 2;
+
+        }
+            .friendName:after{
+                content:"";
+                position:absolute;
+                
+                width:15px;
+                height:15px;
+                background-color:rgb(255, 0, 0);
+
+                border-radius: 50%;
+          
+                
+                transform: translate(-7px, -0px);
+                z-index: 3;
+            }
+        .callOptions{
+            float:right;
+            list-style: none;
+            margin-right:20px;
+        
+        }
+            .callOptions li{
+                padding:0px 5px;
+                display:inline-block;
+            }
+            .svg{
+                width:30px;
+                height:30px;
+
+
+            }
+        .messageText{
+            position:absolute;
+            bottom:20px;
+            left:20px;
+            width:100%;
+
+
+
+        }
+            .messageText input{
+                width:93%;
+                background-color:transparent;
+                border:0px;
+                border-bottom:1px solid black;
+                color:white;
+                outline:none;
+                font-size:15px;
+                border-radius: 0px;
+            }    
+                .messageText input::placeholder{
+                    color:rgba(255, 255, 255, 0.555);
+                   
+                }  
+            
+
 h1{
-    color:black;
+    margin:0px;
+    cursor:default;
 }
