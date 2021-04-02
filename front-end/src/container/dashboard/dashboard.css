@@ -14,7 +14,7 @@
     background-position: center;
     background-size: cover;
 
-
+    overflow: hidden;
 }
 
 .navBar{
@@ -67,19 +67,20 @@
     .bounds{
         position:absolute;
         top: 0px ;
-        left:70px;
+        left:calc(70px + 200px);
         //border:2px solid black;
-        height: calc(100vh - 5px);
-        width:calc(100vw - 74px);
+        height: 100vh;
+        width:calc(100vw - 270px);
     }
         .messages{
             border:0px solid black;
-            border-radius: 20px;
-
+            border-radius: 0px 10px 10px 0px;
+            position: relative;
             height:600px;
             width:600px;
             background-color: rgba(255, 255, 255, .15);  
             backdrop-filter: blur(50px);
+            z-index: 1;
             
         }
             .messages:hover{
@@ -94,6 +95,79 @@
 
                 cursor:default;
             }
+
+        .friends{
+            position:absolute;
+            width:200px;
+            height:calc(100% + 30px);
+           
+            transform:translate(-100%,-30px);
+            z-index:-100!important;
+            background:var(--gray);
+            color:white;
+
+            border-radius: 10px 0px 0px 10px;
+        }
+            .friends h1{
+                font-size: 20px;
+                text-align: center;
+                margin-top:10px;
+                -webkit-touch-callout: none; /* iOS Safari */
+                    -webkit-user-select: none; /* Safari */
+                    -khtml-user-select: none; /* Konqueror HTML */
+                    -moz-user-select: none; /* Old versions of Firefox */
+                        -ms-user-select: none; /* Internet Explorer/Edge */
+                            user-select: none; 
+            }
+            .friends ul{
+                list-style: none;
+               
+                padding:0px;
+                
+
+            }
+                .friends ul li{
+                    display:flex;
+                   padding:5px 0px 5px 10px;
+                    align-items: center;
+                    font-size: 17px;
+                    -webkit-touch-callout: none; /* iOS Safari */
+                    -webkit-user-select: none; /* Safari */
+                    -khtml-user-select: none; /* Konqueror HTML */
+                    -moz-user-select: none; /* Old versions of Firefox */
+                        -ms-user-select: none; /* Internet Explorer/Edge */
+                            user-select: none; /* Non-prefixed ve*/
+
+                    cursor:pointer;
+
+                    width:90%;
+                    text-align: center;
+                    margin:10px auto;
+                }
+            .friends img{
+                width:40px;
+                border-radius: 50%;
+                margin-right:20px;
+            }
+            .friends ul li:after{
+                    position: absolute;
+                    content:"";
+                    width:10px;
+                    height: 10px;
+                    background-color:rgb(0, 255, 0);
+                    transform:translate(30px,15px);
+                    border-radius: 50%;
+                    
+                }
+
+            .selectedChat{
+                
+                border-radius:10px;
+                background-color:rgb(66, 66, 66);
+                
+                cursor:default!important;
+            }
+
         .messageHeader{
             position:relative;
 
@@ -107,6 +181,7 @@
             height: 30px;
         }
             .friendName{
+                margin-left:10px;
                 position:relative;
                 display: inline;
                 color:rgb(255, 255, 255);
@@ -135,15 +210,17 @@
                     
                     width:12px;
                     height:12px;
-                    background-color:rgb(255, 0, 0);
+                    background-color:rgb(0, 255, 0);
 
                     border-radius: 50%;
             
                     
-                    transform: translate(-7px, -0px);
+                    transform: translate(5px, 10px);
                     z-index: -1;
 
                     overflow: visible;
+
+                    
                 }
             .callOptions{
                 display:inline;
@@ -177,6 +254,58 @@
                         height:20px;
                         transform:translateY(-2px);
                     }
+                        .callOptions li:after{
+                            width:120px;
+                            
+                            
+                            font-size:15px;
+                            position:absolute;
+                            color:white;
+
+                            transform:translate(-75px, 30px);
+                            background:var(--gray);
+                            border-radius: 10px;
+                            padding:5px;
+
+                            opacity: 0;
+                           
+
+                            font-weight: 500;
+                        }
+                        .callOptions li:first-child:after{
+                            content:"Start Voice Call";
+                        }
+                        .callOptions li:nth-child(2):after{
+                            content:"Start Video Call";
+                            transform:translate(-78px, 35px);
+                        }
+                            .callOptions li:first-child:hover:after{
+                                opacity: 1;
+                            }    
+                            .callOptions li:nth-child(2):hover:after{
+                                opacity: 1;
+                            } 
+                        .callOptions li:before{
+                            content:"";
+                            position: absolute;
+                            width:20px;
+                            height: 20px;
+                            background:var(--gray);
+
+                            transform:translateY(30px) rotate(45deg);
+                            opacity:0;
+
+                         
+                        }
+                        .callOptions li:nth-child(2):before{
+                            transform:translateY(35px) rotate(45deg);
+                        }
+                            .callOptions li:first-child:hover:before{
+                                opacity:1;
+                            }
+                            .callOptions li:nth-child(2):hover:before{
+                                opacity: 1;
+                            }
                 .searchMessages{
                     width:100px;
                     display:inline-block;
