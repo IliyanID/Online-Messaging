@@ -7,8 +7,8 @@ import {ReactComponent as Message} from '../../resources/svg/chatting.svg'
 import {ReactComponent as Phone} from '../../resources/svg/phone-call.svg'
 import {ReactComponent as Video} from '../../resources/svg/video-camera.svg'
 
-import HostProfile from '../../resources/profilePicture/male.jpg'
-import ClientProfile from '../../resources/profilePicture/female.jpg'
+import HostProfile from '../../resources/profilePicture/sunset.jpg'
+import ClientProfile from '../../resources/profilePicture/colorful.jpg'
 
 interface props{
     logOut: () => void
@@ -33,11 +33,14 @@ const Dashboard: React.FC<props> = ({logOut,creds}) => {
             {userName:creds.userName, message:"This is what the user is responding with because because because because because because because because because because", date:"4/1/2021", time:"10:40AM"},
             {userName:creds.userName, message:"This is what the Host is saying", date:"4/1/2021", time:"10:40AM"},
             {userName:"User", message:"I am Responding to this", date:"4/1/2021", time:"10:41AM"},
-            {userName:"User", message:"I disagree", date:"4/1/2021", time:"10:41AM"}
+            {userName:"User", message:"I disagree", date:"4/1/2021", time:"10:41AM"},
+            {userName:"User", message:"The Objection is", date:"4/1/2021", time:"10:43AM"},
+            {userName:"User", message:"mabye", date:"4/1/2021", time:"10:45AM"},
+            {userName:creds.userName, message:"wack", date:"4/1/2021", time:"10:45AM"}
             
         ],
         [
-            ["User2"]
+            ["User","User3"]
         ],
         [
             ["User3"]
@@ -77,9 +80,18 @@ const Dashboard: React.FC<props> = ({logOut,creds}) => {
             }
             return {i:index,combine:combine};
         }
-    
-        let JSXmessagesArray:JSX.Element[] = [];
         let currentMessages = messageData[index];
+
+        let JSXmessagesArray:JSX.Element[] = [
+            <li>
+                <div className='hostMessage'>
+                    <img src={ClientProfile} alt ='Host Profile'/>
+                    <div className='startMessageName'>{currentMessages[0][0]}</div>
+                    <div ref = {messageRef} className='messageStart'>This is the beginning of your direct message history with <b>{currentMessages[0].map((s) => {return '@' + s + ' '})}</b></div>
+                </div>
+            </li>];
+
+
         for(let i = 1; i < currentMessages.length;i++){
             let messageResult = combineMessages(i,currentMessages);
             
@@ -142,7 +154,9 @@ const Dashboard: React.FC<props> = ({logOut,creds}) => {
         if(hours === 0)
             hours = 12;
 
-        let minutes = today.getMinutes();
+        let minutes:string|number = today.getMinutes();
+        if(minutes < 10)
+            minutes = '0' + minutes;
         let time = ((hours > 12) ? (hours - 12) : hours) + ':' + minutes + ((hours > 12) ? 'PM' : 'AM');
 
         if(doc != null){
@@ -174,7 +188,7 @@ const Dashboard: React.FC<props> = ({logOut,creds}) => {
     useEffect(()=>{
         if(messageRef !== null && messageRef.current !== null){
             // @ts-ignore: Object is possibly 'null'
-            messageRef.current.scrollIntoView({behavior: "smooth"}); 
+            messageRef.current.scrollIntoView({behavior: "instant"}); 
         }
 
     },[selectedMessage])
@@ -195,12 +209,13 @@ const Dashboard: React.FC<props> = ({logOut,creds}) => {
                 cancel = '.messagesContainer'
                 >
                     <div className='messages'>
+                        <div className='grabBar'></div>
                         <div className='messagesContainer'>
                             <div className = 'friends'>
                                 <h1>Direct Messages</h1>
                                 <ul>
                                     {messageData.map((obj,index)=>{
-                                        return <li onClick={()=>{setSelectedMessage(index)}} className={(index === selectedMessage) ? 'selectedChat' : ''}><img src={ClientProfile} alt='User'/>{obj[0].map((s)=>{return (s + ' ');})}</li>
+                                        return <li onClick={()=>{setSelectedMessage(index)}} className={(index === selectedMessage) ? 'selectedChat' : ''}><img src={ClientProfile} alt='User'/>{obj[0].map((s,index1)=>{return (s + ((messageData[index][0].length - 1 === index1)?"":", "));})}</li>
                                     })}
                                     
                                 </ul>
