@@ -27,9 +27,9 @@
     border-radius: 0px 10px 0px 0px;
 
     text-align: center;
-    height:calc(100% - 80px);
+    height:calc(100% - 60px);
     position:absolute;
-    top:80px;
+    top:60px;
 
     margin:0px;
     padding:0px;
@@ -56,6 +56,57 @@
         font-size:15px;
         
     }
+
+    .userSettings{
+        border-radius: 0px 0px 10px 0px;
+        width:300px;
+        float:left;
+        background:var(--gray);
+        position: relative;
+    }
+        .userSettings img{
+            width:45px;
+            margin:5px;
+            border-radius: 50%;
+            display:inline-block
+        }
+        .userSettingsName{
+            display:inline-block;
+            color:white;
+            font-size: 15px;
+            position: absolute;
+            top:50%;
+            transform:translate(0px,-50%);
+        }
+        .settingsSVG{
+            width:20px;
+            height:20px;
+            fill:white;
+        
+            
+            position:absolute;
+            top:50%;
+            transform: translateY(-50%);
+            right:5px;
+
+            cursor:pointer;
+            
+        }
+        .microphoneSVG{
+            width:20px;
+            height:20px;
+            position: absolute;
+            fill:white;
+            right:40px;
+            top:50%;
+            transform: translate(0,-50%);
+            cursor:pointer;
+        }
+            .microphoneChild{
+                width:20px;
+                height:20px;
+            }
+
         .messageSVG{
 
           
@@ -66,10 +117,10 @@
         }
     .bounds{
         position:absolute;
-        top: 0px ;
+        top: 65px ;
         left:calc(70px + 200px);
-        //border:2px solid black;
-        height: 100vh;
+
+        height: calc(100vh - 65px);
         width:calc(100vw - 270px);
     }
         .messages{

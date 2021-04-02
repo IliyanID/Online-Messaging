@@ -6,6 +6,8 @@ import './dashboard.css';
 import {ReactComponent as Message} from '../../resources/svg/chatting.svg'
 import {ReactComponent as Phone} from '../../resources/svg/phone-call.svg'
 import {ReactComponent as Video} from '../../resources/svg/video-camera.svg'
+import {ReactComponent as Settings} from '../../resources/svg/settings.svg'
+import {ReactComponent as Microphone} from '../../resources/svg/microphone.svg'
 
 import HostProfile from '../../resources/profilePicture/sunset.jpg'
 import ClientProfile from '../../resources/profilePicture/colorful.jpg'
@@ -194,7 +196,12 @@ const Dashboard: React.FC<props> = ({logOut,creds}) => {
     },[selectedMessage])
     return (
         <div className='dashboard'>
-            <h1 className='test'>Hello {creds.userName}</h1>
+            <div className='userSettings'>
+                <img src={HostProfile} alt='host'></img>
+                <div className='userSettingsName'>{creds.userName}</div>
+                <div className='microphoneSVG'><Microphone className='microphoneChild'/></div>
+                <div className='settingsSVG'><Settings className='settingsSVG'></Settings></div>
+            </div>
             <input type='button' value='Logout' onClick={logOut}></input>
             <ul className='navBar'>
                 <li> <Message fill="white" className='messageSVG'/> </li>
@@ -205,7 +212,7 @@ const Dashboard: React.FC<props> = ({logOut,creds}) => {
             <div className='bounds'>
                 <Draggable 
                 bounds = {'.bounds'}
-                defaultPosition = {{x:0,y:80}}
+                defaultPosition = {{x:0,y:0}}
                 cancel = '.messagesContainer'
                 >
                     <div className='messages'>
