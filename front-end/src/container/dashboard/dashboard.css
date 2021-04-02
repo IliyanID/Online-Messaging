@@ -79,7 +79,7 @@
             height:600px;
             width:600px;
             background-color: rgba(255, 255, 255, .15);  
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(50px);
             
         }
             .messages:hover{
@@ -119,6 +119,14 @@
                 
 
                 z-index: 2;
+                cursor:pointer;
+                -webkit-touch-callout: none; /* iOS Safari */
+                    -webkit-user-select: none; /* Safari */
+                    -khtml-user-select: none; /* Konqueror HTML */
+                    -moz-user-select: none; /* Old versions of Firefox */
+                        -ms-user-select: none; /* Internet Explorer/Edge */
+                            user-select: none; /* Non-prefixed version, currently
+                                                supported by Chrome, Edge, Opera and Firefox */
 
             }
                 .friendName:after{
@@ -152,17 +160,47 @@
                 .callOptions li{
                     padding:0px 5px;
                     display:inline-block;
+                    cursor:pointer;
+                    transform: translateY(2px);
                 }
+                    .callOptions li:first-child{
+                        margin-right:10px;
+                    }
                 .svg{
-                    width:30px;
-                    height:30px;
+                    width:25px;
+                    height:25px;
 
                     fill:white;
                 }
                     .microphone{
-                        width:25px;
-                        height:25px;
+                        width:20px;
+                        height:20px;
                         transform:translateY(-2px);
+                    }
+                .searchMessages{
+                    width:100px;
+                    display:inline-block;
+
+                    transform: translateY(-5px);
+                    outline:none;
+
+                    background:black;
+                    border:0px;
+
+                    height:20px;
+                    margin:0px 10px;
+
+                    color:white;
+
+                    border-radius: 5px;
+                    padding:0px 5px;
+                   
+                }
+                    .searchMessages::placeholder{
+                        color: rgb(153, 149, 149);
+                    }
+                    .searchMessages:focus{
+                        width:200px;
                     }
         .messageContent{
             width:90%;
@@ -170,6 +208,12 @@
             text-align: center;
             margin:0 auto;
             position: relative;
+
+            overflow-y:scroll;
+            overflow-x:hidden;
+            height:83%;
+
+            margin-top:10px;
         }
             .messageContent ul{
                 text-align: left;
@@ -185,19 +229,56 @@
                     border:2px solid transparent;
                     min-height: 50px;
                 }
+                        .messageContent::-webkit-scrollbar{
+                            width:10px;
+                        }
+                        .messageContent::-webkit-scrollbar-track {
+                            background:transparent;
+                        }
+                        .messageContent::-webkit-scrollbar-thumb {
+                            background-color: var(--gray);    /* color of the scroll thumb */
+                            border-radius: 20px;       /* roundness of the scroll thumb */
+                            border: 1px solid transparent;  /* creates padding around scroll thumb */
+                          }
                     .profilePicture{
                         width:50px;
                         border-radius: 50%;
                         float:left;
-                    }
-                    .hostMessage:first-child{
-                        display:inline-block;
-                    }
-                    .hostMessage:nth-child(2){
-                        display:inline-block;
-                    }
+                        -webkit-touch-callout: none; /* iOS Safari */
+                        -webkit-user-select: none; /* Safari */
+                        -khtml-user-select: none; /* Konqueror HTML */
+                        -moz-user-select: none; /* Old versions of Firefox */
+                            -ms-user-select: none; /* Internet Explorer/Edge */
+                                user-select: none; /* Non-prefixed version, currently
+                                                    supported by Chrome, Edge, Opera and Firefox */
 
-        .messageText{
+                    }
+                    .hostName{
+                        display:inline-block;
+                        margin-left: 10px;
+                        color:white;
+                        cursor:pointer;
+                    }
+                        .hostName:hover{
+                            text-decoration: underline;
+                        }
+                    .time{
+                        display:inline-block;
+                        margin-left:10px;
+                        font-size:12px;
+                        color:rgb(66, 66, 66);
+                        
+                    }
+                    .messageText{
+
+                        margin-left:60px;
+                        font-size:15px;
+                        color:white;
+                        cursor:text;
+                    }
+                    
+
+        .messageType{
             position:absolute;
             bottom:20px;
             left:20px;
@@ -206,7 +287,7 @@
 
 
         }
-            .messageText input{
+            .messageType input{
                 width:93%;
                 background-color:transparent;
                 border:0px;
@@ -216,7 +297,7 @@
                 font-size:15px;
                 border-radius: 0px;
             }    
-                .messageText input::placeholder{
+                .messageType input::placeholder{
                     color:rgba(255, 255, 255, 0.555);
                    
                 }  
