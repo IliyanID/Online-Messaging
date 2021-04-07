@@ -86,7 +86,7 @@ const Dashboard: React.FC<props> = ({logOut,creds}) => {
 
         let JSXmessagesArray:JSX.Element[] = [
             <li>
-                <div className='hostMessage'>
+                <div className='hostMessage noSelect'>
                     <img src={ClientProfile} alt ='Host Profile'/>
                     <div className='startMessageName'>{currentMessages[0][0]}</div>
                     <div ref = {messageRef} className='messageStart'>This is the beginning of your direct message history with <b>{currentMessages[0].map((s) => {return '@' + s + ' '})}</b></div>
@@ -120,7 +120,7 @@ const Dashboard: React.FC<props> = ({logOut,creds}) => {
                     <ul className='callOptions'>
                         <li><Phone className='svg microphone'/></li>
                         <li><Video className='svg'/></li>
-                        <input className='searchMessages' type='text' placeholder='Search'/>
+                        <input className='searchMessages noSelect' type='text' placeholder='Search'/>
                     </ul>
                 </div>
                 <div className='messageContent'>
@@ -186,7 +186,8 @@ const Dashboard: React.FC<props> = ({logOut,creds}) => {
     }
 
     const [selectedMessage,setSelectedMessage] = useState(0);
-  
+
+
     useEffect(()=>{
         if(messageRef !== null && messageRef.current !== null){
             // @ts-ignore: Object is possibly 'null'
@@ -194,23 +195,77 @@ const Dashboard: React.FC<props> = ({logOut,creds}) => {
         }
 
     },[selectedMessage])
+
+
+    const [draggable,setDraggable] =  useState("message");
+
     return (
         <div className='dashboard'>
-            <div className='userSettings'>
+            <div className='userSettings noSelect'>
                 <img src={HostProfile} alt='host'></img>
-                <div className='userSettingsName'>{creds.userName}</div>
+                <div className='userSettingsName noSelect' onClick={logOut}>{creds.userName}</div>
                 <div className='microphoneSVG'><Microphone className='microphoneChild'/></div>
                 <div className='settingsSVG'><Settings className='settingsSVG'></Settings></div>
             </div>
-            <input type='button' value='Logout' onClick={logOut}></input>
+            
             <ul className='navBar'>
-                <li> <Message fill="white" className='messageSVG'/> </li>
-                <li>Server 1</li>
-                <li>Server 2</li>
-                <li>Server 3</li>
+                <li> <Message fill="white" className='messageSVG noSelect'/> </li>
+                <li className='noSelect'></li>
+                <li className='noSelect'></li>
+                <li className='noSelect'></li>
             </ul>
+
             <div className='bounds'>
-                <Draggable 
+            <Draggable 
+        bounds = {'.bounds'}
+        defaultPosition = {{x:0,y:0}}
+        cancel = '.messagesContainer'
+        onMouseDown={()=>setDraggable("message")}
+        >
+            <div  style={(draggable === "message")?{zIndex:1000}:{zIndex:10}} className='messages'>
+                <div className='grabBar'></div>
+                <div className='messagesContainer'>
+                    <div className = 'friends'>
+                        <h1>Direct Messages</h1>
+                        <ul>
+                            {messageData.map((obj,index)=>{
+                                return <li onClick={()=>{setSelectedMessage(index)}} className={(index === selectedMessage) ? 'selectedChat' : ''}><img src={ClientProfile} alt='User'/>{obj[0].map((s,index1)=>{return (s + ((messageData[index][0].length - 1 === index1)?"":", "));})}</li>
+                            })}
+                            
+                        </ul>
+                    </div>
+                   {parseMessageData(selectedMessage,messageData,creds.userName)}
+                    <form onSubmit={sendMessage} className='messageType'>
+                        <input id='messageType'type='text' autoComplete = 'off' placeholder={'Message ' + messageData[selectedMessage][0].map((s)=>{return ('@' + s + ' ');})}></input>
+                    </form>
+                </div>
+                
+            </div>
+        </Draggable>                
+        
+        <Draggable 
+        bounds = {'.bounds'}
+        defaultPosition = {{x:900,y:0}}
+        cancel = '.settingContainer'
+        onMouseDown={()=>setDraggable("settings")}
+        >
+            <div  style={(draggable === "settings")?{zIndex:1000}:{zIndex:10}} className='settingWindows'>
+                <div  className='grabBar'></div>
+                <div  className='settingContainer'>
+                    <div className='settingsTabs'>
+                    </div>
+                    <h1>My Account</h1>
+                </div>
+            </div>
+        </Draggable>
+            </div>
+                
+            
+        </div>
+    );
+}
+/*
+<Draggable 
                 bounds = {'.bounds'}
                 defaultPosition = {{x:0,y:0}}
                 cancel = '.messagesContainer'
@@ -235,13 +290,7 @@ const Dashboard: React.FC<props> = ({logOut,creds}) => {
                         
                     </div>
                 </Draggable>
-            </div>
-                
-            
-        </div>
-    );
-}
-
+*/
 
 
 export default Dashboard;
