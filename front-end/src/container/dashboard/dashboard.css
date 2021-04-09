@@ -399,6 +399,7 @@
                             z-index: 3;
 
                             font-weight: 500;
+                            transition-delay:0s;
                         }
                         .callOptions li:first-child:after{
                             content:"Start Voice Call";
@@ -409,9 +410,11 @@
                         }
                             .callOptions li:first-child:hover:after{
                                 opacity: 1;
+                                transition-delay:.3s;
                             }    
                             .callOptions li:nth-child(2):hover:after{
                                 opacity: 1;
+                                transition-delay:.3s;
                             } 
                         .callOptions li:before{
                             content:"";
@@ -430,9 +433,11 @@
                         }
                             .callOptions li:first-child:hover:before{
                                 opacity:1;
+                                transition-delay:.3s;
                             }
                             .callOptions li:nth-child(2):hover:before{
                                 opacity: 1;
+                                transition-delay:.3s;
                             }
                 .searchMessages{
                     width:100px;
@@ -512,10 +517,13 @@
 
                     }
                     .hostName{
+                        position:relative;
+
                         display:inline-block;
                         margin-left: 10px;
                         color:white;
                         cursor:pointer;
+                   
                     }
                         .hostName:hover{
                             text-decoration: underline;
@@ -527,6 +535,7 @@
                         color:rgb(206, 205, 205);
                         font-weight: 500;
                         
+                        
                     }
                     .messageText{
 
@@ -534,12 +543,49 @@
                         font-size:15px;
                         color:white;
                         cursor:text;
-                    
+                        padding-left:3px;
+
+                        z-index:10;
                     }
+                        .messageText:hover{
+                            background:rgba(46, 45, 45, 0.507);
+                            z-index:10;
+                        }
+                        .messageHiddenTime{
+                           
+                            background:var(--gray);
+                            width:300px;
+                            text-align: center;
+                            padding:5px 0px;
+                            position:absolute;
+
+                            border-radius:10px;
+                            transform:translateY(-200%);
+
+                            color:white;
+
+                            opacity:0;
+                            transition:.1s;
+                            transition-delay:0s
+                        }
+                            .messageHiddenTime:after{
+                                content:"";
+                                position:absolute;
+                                background:var(--gray);
+                                z-index:-1;
+                                width:20px;
+                                height:20px;
+                                transform:rotate(45deg) translate(-100px,120px);
+                            }
+                            .messageText:hover + .messageHiddenTime{
+                                opacity:1!important;
+                                transition-delay:1s;
+                            }
+                          
                     .hostMessage img{
                         width:90px;
                         border-radius: 50%;
-                        ;
+                   
                     }
                     .startMessageName{
                        

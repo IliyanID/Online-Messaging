@@ -38,7 +38,7 @@ const Dashboard: React.FC<props> = ({logOut,creds}) => {
             {userName:"User", message:"I disagree", date:"4/1/2021", time:"10:41AM"},
             {userName:"User", message:"The Objection is", date:"4/1/2021", time:"10:43AM"},
             {userName:"User", message:"mabye", date:"4/1/2021", time:"10:45AM"},
-            {userName:creds.userName, message:"wack", date:"4/1/2021", time:"10:45AM"}
+            {userName:creds.userName, message:"wack", date:"4/3/2021", time:"10:45AM"}
             
         ],
         [
@@ -67,9 +67,10 @@ const Dashboard: React.FC<props> = ({logOut,creds}) => {
     
         const combineMessages = (index:number,currentMessages) => {
             let user = currentMessages[index].userName;
-            let date = currentMessages[index].date;
+            let date:string = currentMessages[index].date;
             let combine:JSX.Element[] = [];
-    
+            
+            
     
             for(let i = index;i < currentMessages.length; i++){
                 if((currentMessages[i].userName !== user) || (currentMessages[i].date !== date)){
@@ -78,7 +79,39 @@ const Dashboard: React.FC<props> = ({logOut,creds}) => {
                 }
                 else if(i === currentMessages.length - 1)
                     index = i;
+
+                let dayOfWeek = ""
+                let d:any = new Date(date);
+                d = d.getDay()
+                switch(d){
+                    case 0:
+                        dayOfWeek = "Sunday";
+                        break;
+                    case 1:
+                        dayOfWeek = "Monday";
+                        break;
+                    case 2:
+                        dayOfWeek = "Tuesday";
+                        break;
+                    case 3:
+                        dayOfWeek = "Wednesday";
+                        break;
+                    case 4:
+                        dayOfWeek = "Thursday";
+                        break;
+                    case 5:
+                        dayOfWeek = "Friday";
+                        break;
+                    case 6:
+                        dayOfWeek = "Saterday";
+                        break;
+                    default:
+                        dayOfWeek = "";
+                        break;
+                }
+
                 combine.push(<div ref = {messageRef} className='messageText'>{currentMessages[i].message}</div>);
+                combine.push(<div className='messageHiddenTime noSelect'>{dayOfWeek + ", " + currentMessages[i].date + " " + currentMessages[i].time}</div>);
             }
             return {i:index,combine:combine};
         }
@@ -199,6 +232,7 @@ const Dashboard: React.FC<props> = ({logOut,creds}) => {
 
     const [draggable,setDraggable] =  useState("message");
 
+    console.log(messageData);
     return (
         <div className='dashboard'>
             <div className='userSettings noSelect'>
@@ -236,7 +270,7 @@ const Dashboard: React.FC<props> = ({logOut,creds}) => {
                     </div>
                    {parseMessageData(selectedMessage,messageData,creds.userName)}
                     <form onSubmit={sendMessage} className='messageType'>
-                        <input id='messageType'type='text' autoComplete = 'off' placeholder={'Message ' + messageData[selectedMessage][0].map((s)=>{return ('@' + s + ' ');})}></input>
+                        <input id='messageType'type='text' autoComplete = 'off' placeholder={'Message' + messageData[selectedMessage][0].map((s)=>{return (' @' + s);})}></input>
                     </form>
                 </div>
                 
