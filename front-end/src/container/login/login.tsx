@@ -21,7 +21,7 @@ const Login:React.FC<props> = ({ getLoginInfo, setLoginInfo}) => {
     createAccount
   }
 
-  let globalURL = "http://10.0.0.37:5000";
+  let globalURL = "http://localhost:5000";
 
   const [state,setState] = useState(Currentpage.login);
   const [notify,setNotify] = useState({error:false,message:""});
