@@ -10,6 +10,7 @@ import {ReactComponent as Microphone} from '../../resources/svg/microphone.svg'
 import HostProfile from '../../resources/profilePicture/sunset.jpg'
 
 import Messages from '../Objects/Messages/Messages'
+import Setting from '../Objects/Settings/Settings'
 
 interface props{
     logOut: () => void
@@ -50,12 +51,46 @@ const Dashboard: React.FC<props> = ({logOut,creds}) => {
 
   
 
-    const setDraggable = (message:string) =>{
-
+    const setDraggable = (index:number) =>{
+        let temp = [...windowsIndex];
+        let tempWindow = windowsIndex[index];
+        temp.splice(index,1);
+        temp.unshift(tempWindow);
+        setWindowsIndex(temp);
     } 
 
+    
+
+    let [windows] = useState([
+        (index:number,zIndex:number)=>{return (<Messages
+        creds = {creds}
+        messageData = {messageData}
+        bounds = ".bounds"
+        defaultPosition = {{x:0,y:0}}
+        cancel = ".messagesContainer"
+        zIndex = {zIndex}
+        index = {index}
+        setZIndex={() =>setDraggable(index)}
+        />)},
+
+        (index:number,zIndex:number)=>{return (<Setting
+            creds = {creds}
+            bounds = ".bounds"
+            defaultPosition = {{x:0,y:0}}
+            cancel = ".settingContainer"
+            zIndex = {zIndex}
+            index = {index}
+            setZIndex={() =>setDraggable(index)}
+            />)}
+    ])
+    
+    let tempArr:number[] = [];
+    for(let i = 0; i < windows.length; i++)
+        tempArr.push(i);
+    let [windowsIndex,setWindowsIndex] = useState<any>([...tempArr]);
 
     return (
+
         <div className='dashboard'>
             <div className='userSettings noSelect'>
                 <img src={HostProfile} alt='host'></img>
@@ -72,15 +107,12 @@ const Dashboard: React.FC<props> = ({logOut,creds}) => {
             </ul>
 
             <div className='bounds'>
-                <Messages
-                    creds = {creds}
-                    messageData = {messageData}
-                    bounds = ".bounds"
-                    defaultPosition = {{x:0,y:0}}
-                    cancel = ".messagesContainer"
-                    zIndex = {10}
-                    onMouseDown={()=>setDraggable("message")}
-                />
+                
+                {windows.map((item,index)=>{
+                    
+                   return item(index,1000 - windowsIndex[index]);
+                })}
+                
 
                 
             </div>   

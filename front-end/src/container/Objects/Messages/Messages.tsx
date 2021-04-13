@@ -14,7 +14,9 @@ interface props{
     bounds:string,
     defaultPosition:{x:number,y:number},
     cancel:string,
-    zIndex:number
+    zIndex:number,
+    index:number,
+    setZIndex:()=>{setDraggable(index:number)}
 }
 
 
@@ -200,17 +202,17 @@ class Messages extends PureComponent{
             doc.value = "";
         }
         
-        if(this.messageRef !== undefined && this.messageRef.current !== null){
+        /*if(this.messageRef !== undefined && this.messageRef.current !== null){
             // @ts-ignore: Object is possibly 'null'
             messageRef.current.scrollIntoView({behavior: "smooth"}); 
-        }
+        }*/
         
         //Set newest message at the top
         let data = this.state.messageData[this.state.selectedMessage];
         let temp = [...this.state.messageData];
         temp.splice(this.state.selectedMessage,1);//Remove newest data
         temp.unshift(data);//place newest data at the front of array
-        this.setState({temp,selectedMessage:0});
+        this.setState({messageData:temp,selectedMessage:0});
     }
 
 
@@ -223,28 +225,47 @@ class Messages extends PureComponent{
     }*/
 
     render(){
-        console.log(this.state.messageData);
+        console.log("index: " + this.props.zIndex);
+
         return(
             <Draggable 
             bounds = {this.props.bounds}
             defaultPosition = {this.props.defaultPosition}
             cancel = {this.props.cancel}
+            
+            onMouseDown = {()=>{this.props.setZIndex()}}
             >
                 <div  style={{zIndex:this.props.zIndex}} className='messages'>
                     <div className='grabBar'></div>
                     <div className='messagesContainer'>
                         <div className = 'friends'>
                             <h1>Direct Messages</h1>
-                            <ul>
-                                {this.state.messageData.map((obj,index)=>{
-                                    return <li onClick={()=>{this.setState({selectedMessage:index})}} className={(index === this.state.selectedMessage) ? 'selectedChat' : ''}><img src={ClientProfile} alt='User'/>{obj[0].map((s,index1)=>{return (s + ((this.state.messageData[index][0].length - 1 === index1)?"":", "));})}</li>
-                                })}
-                                
-                            </ul>
+                            <ul>{
+                                this.state.messageData.map((obj,index)=>{
+                                    return(
+                                        <li 
+                                            onClick={()=>{this.setState({selectedMessage:index})}} 
+                                            className={(index === this.state.selectedMessage) ? 'selectedChat' : ''}>
+                                                <img 
+                                                src={ClientProfile} 
+                                                alt='User'
+                                                />
+                                                    {obj[0].map((s,index1)=>{
+                                                        return (s + ((this.state.messageData[index][0].length - 1 === index1)?"":", "));
+                                                    })}
+                                        </li>
+                                    );
+                                })
+                           }</ul>
                         </div>
                     {this.parseMessageData(this.state.selectedMessage,this.state.messageData,this.creds.userName)}
                         <form onSubmit={this.sendMessage} className='messageType'>
-                            <input id='messageType'type='text' autoComplete = 'off' placeholder={'Message' + this.state.messageData[this.state.selectedMessage][0].map((s)=>{return (' @' + s);})}></input>
+                            <input 
+                            id='messageType'
+                            type='text' 
+                            autoComplete = 'off' 
+                            placeholder={'Message' + this.state.messageData[this.state.selectedMessage][0].map((s)=>{return (' @' + s);})}
+                            />
                         </form>
                     </div>
                     
