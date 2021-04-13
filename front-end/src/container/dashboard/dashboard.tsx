@@ -17,14 +17,6 @@ interface props{
     creds:{loggedIn:boolean,userName:string,view:string}
 }
 
-
-
-
-
-
-
-
-
 const Dashboard: React.FC<props> = ({logOut,creds}) => {
     const [messageData] = useState<any>(
     [
@@ -57,11 +49,28 @@ const Dashboard: React.FC<props> = ({logOut,creds}) => {
         temp.splice(index,1);
         temp.unshift(tempWindow);
         setWindowsIndex(temp);
+
+        console.log(windowsIndex);
     } 
 
-    
+    const openSettings = () =>{
+        let temp = [...windows];
+        temp.push((index:number,zIndex:number)=>{return (<Setting
+            creds = {creds}
+            bounds = ".bounds"
+            defaultPosition = {{x:0,y:0}}
+            cancel = ".settingContainer"
+            zIndex = {zIndex}
+            index = {index}
+            setZIndex={() =>setDraggable(index)}
+            />)}
+        )
+        setWindowsIndex(windowsIndex.push(windowsIndex.length ));
+        setDraggable(windowsIndex.length);
+        setWindows(temp);
+    }
 
-    let [windows] = useState([
+    const [windows,setWindows] = useState([
         (index:number,zIndex:number)=>{return (<Messages
         creds = {creds}
         messageData = {messageData}
@@ -73,21 +82,13 @@ const Dashboard: React.FC<props> = ({logOut,creds}) => {
         setZIndex={() =>setDraggable(index)}
         />)},
 
-        (index:number,zIndex:number)=>{return (<Setting
-            creds = {creds}
-            bounds = ".bounds"
-            defaultPosition = {{x:0,y:0}}
-            cancel = ".settingContainer"
-            zIndex = {zIndex}
-            index = {index}
-            setZIndex={() =>setDraggable(index)}
-            />)}
+        
     ])
     
     let tempArr:number[] = [];
     for(let i = 0; i < windows.length; i++)
         tempArr.push(i);
-    let [windowsIndex,setWindowsIndex] = useState<any>([...tempArr]);
+    const [windowsIndex,setWindowsIndex] = useState<any>([...tempArr]);
 
     return (
 
@@ -96,7 +97,7 @@ const Dashboard: React.FC<props> = ({logOut,creds}) => {
                 <img src={HostProfile} alt='host'></img>
                 <div className='userSettingsName noSelect' onClick={logOut}>{creds.userName}</div>
                 <div className='microphoneSVG'><Microphone className='microphoneChild'/></div>
-                <div className='settingsSVG'><Settings className='settingsSVG'></Settings></div>
+                <div onClick={openSettings} className='settingsSVG'><Settings className='settingsSVG'></Settings></div>
             </div>
             
             <ul className='navBar'>
@@ -119,23 +120,5 @@ const Dashboard: React.FC<props> = ({logOut,creds}) => {
         </div>
     );
 }
-/*
-<Draggable 
-                bounds = {'.bounds'}
-                defaultPosition = {{x:900,y:0}}
-                cancel = '.settingContainer'
-                onMouseDown={()=>setDraggable("settings")}
-                >
-                    <div  style={(draggable === "settings")?{zIndex:1000}:{zIndex:10}} className='settingWindows'>
-                        <div  className='grabBar'></div>
-                        <div  className='settingContainer'>
-                            <div className='settingsTabs'>
-                            </div>
-                            <h1>My Account</h1>
-                        </div>
-                    </div>
-                </Draggable>
-*/
-
 
 export default Dashboard;

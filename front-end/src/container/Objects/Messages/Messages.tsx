@@ -61,8 +61,6 @@ class Messages extends PureComponent{
             let user = currentMessages[index].userName;
             let date:string = currentMessages[index].date;
             let combine:JSX.Element[] = [];
-            
-            
     
             for(let i = index;i < currentMessages.length; i++){
                 if((currentMessages[i].userName !== user) || (currentMessages[i].date !== date)){
@@ -182,6 +180,7 @@ class Messages extends PureComponent{
         let yyyy = today.getFullYear();
 
         let date = mm + '/' + dd + '/' + yyyy;
+
 
 
 
