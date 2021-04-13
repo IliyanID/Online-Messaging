@@ -27,13 +27,13 @@ class Messages extends PureComponent{
     }
     creds;
     props;
-    messageRef;
-
+    private messageRef: React.RefObject<HTMLInputElement>;;
     constructor(props:props){
         super(props);
         this.props = props;
         this.creds = props.creds;
         this.messageRef = React.createRef();
+        
 
         this.setState({
             messageData:props.messageData,
@@ -165,6 +165,8 @@ class Messages extends PureComponent{
         return result;
     }
 
+
+
     sendMessage = (e) =>{
         e.preventDefault();
 
@@ -202,10 +204,11 @@ class Messages extends PureComponent{
             doc.value = "";
         }
         
-        /*if(this.messageRef !== undefined && this.messageRef.current !== null){
+       
+        if(this.messageRef !== undefined && this.messageRef.current !== null){
             // @ts-ignore: Object is possibly 'null'
-            messageRef.current.scrollIntoView({behavior: "smooth"}); 
-        }*/
+            this.messageRef.current.scrollIntoView({behavior: "smooth"}); 
+        }
         
         //Set newest message at the top
         let data = this.state.messageData[this.state.selectedMessage];
@@ -217,15 +220,19 @@ class Messages extends PureComponent{
 
 
 
-    /*componentDidUpdate(){
+    componentDidUpdate(){
         if(this.messageRef !== undefined && this.messageRef.current !== null){
             // @ts-ignore: Object is possibly 'null'
-            messageRef.current.scrollIntoView({behavior: "instant"}); 
+            this.messageRef.current.scrollIntoView({behavior: "instant"}); 
         }
-    }*/
+    }
+
 
     render(){
-        console.log("index: " + this.props.zIndex);
+        if(this.messageRef !== undefined && this.messageRef.current !== null){
+            // @ts-ignore: Object is possibly 'null'
+            this.messageRef.current.scrollIntoView({behavior: "instant"}); 
+        }
 
         return(
             <Draggable 
@@ -244,7 +251,7 @@ class Messages extends PureComponent{
                                 this.state.messageData.map((obj,index)=>{
                                     return(
                                         <li 
-                                            onClick={()=>{this.setState({selectedMessage:index})}} 
+                                            onClick={()=>{this.setState(()=>({selectedMessage:index}))}} 
                                             className={(index === this.state.selectedMessage) ? 'selectedChat' : ''}>
                                                 <img 
                                                 src={ClientProfile} 
